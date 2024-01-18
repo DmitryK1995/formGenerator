@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "noImplicitAny": true,
+        "module": "commonjs",
+        "target": "ES2022",
+        "jsx": "react-jsx",
+        "moduleResolution": "node",
+        "baseUrl": ".",      
+    },
+    "ts-node": {
+        "compilerOptions": {
+          "module": "CommonJS",
+        }
+      }
+}
