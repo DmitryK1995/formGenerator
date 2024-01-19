@@ -1,5 +1,7 @@
 import Tag from './tag';
 
+import createLabel from './helpers/form-helpers';
+
 interface IAddProperties {
   class?: string,
   as?: string,
@@ -7,12 +9,23 @@ interface IAddProperties {
   cols?: number
 }
 
-export default class InputCreator {
+export default class FormFieldsCreator {
   private inputList: string[] = [];
 
   constructor(private template: Record<string, string>) {}
 
-  createInput(propertyName: string, addProperties: IAddProperties) {
+  submit(propertyName?: string) {
+    const submitProperties = {
+      type: 'submit',
+      value: propertyName || 'Save',
+    };
+
+    const submit = new Tag('input', submitProperties).toString();
+
+    this.inputList.push(submit);
+  }
+
+  private createInput(propertyName: string, addProperties: IAddProperties) {
     if (!this.template[propertyName]) throw new Error(`Field ${propertyName} does not exist in the template.`);
 
     const inputProperties = {
@@ -22,10 +35,13 @@ export default class InputCreator {
       ...addProperties,
     };
 
-    return new Tag('input', inputProperties).toString();
+    const label = createLabel(propertyName);
+    const input = new Tag('input', inputProperties).toString();
+
+    return `${label}${input}`;
   }
 
-  createTextArea(propertyName: string, addProperties: IAddProperties) {
+  private createTextArea(propertyName: string, addProperties: IAddProperties) {
     if (!this.template[propertyName]) throw new Error(`Field ${propertyName} does not exist in the template.`);
 
     const textAreaProperties = {
@@ -36,7 +52,10 @@ export default class InputCreator {
 
     const value = this.template[propertyName];
 
-    return new Tag('textarea', textAreaProperties, value).toString();
+    const label = createLabel(propertyName);
+    const textarea = new Tag('textarea', textAreaProperties, value).toString();
+
+    return `${label}${textarea}`;
   }
 
   input(

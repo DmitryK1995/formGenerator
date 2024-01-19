@@ -15,22 +15,32 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 test('test 1', () => {
-  expect(HexletCode.formFor(template, { url: '/users' }, () => {})).toBe('<form action="/users" method="post"></form>');
+  expect(HexletCode.formFor(template, { url: '/users' }, () => {})).toBe("<form action='/users' method='post'></form>");
 });
 
-test('test 2', () => {
-  expect(readFile('file1.json')).toBe(readFile('file2.json'));
-});
+test('test 2. Input', () => {
+  const { result } = JSON.parse(readFile('file1.json'));
 
-test('test 3. Input', () => {
   expect(HexletCode.formFor(template, {}, (f) => {
     f.input('name', { class: 'user-input' });
     f.input('job');
-  })).toBe('<form action="#" method="post"><input name="name" type="text" value="rob" class="user-input"><input name="job" type="text" value="hexlet"></form>');
+  })).toBe(result);
 });
 
-test('test 4. TextArea', () => {
+test('test 3. TextArea', () => {
+  const { result } = JSON.parse(readFile('file2.json'));
+
   expect(HexletCode.formFor(template, {}, (f) => {
     f.input('job', { as: 'textarea', rows: 50, cols: 50 });
-  })).toBe('<form action="#" method="post"><textarea cols="50" rows="50" name="job">hexlet</textarea></form>');
+  })).toBe(result);
+});
+
+test('test 4. submit', () => {
+  const { result } = JSON.parse(readFile('file3.json'));
+
+  expect(HexletCode.formFor(template, {}, (f) => {
+    f.input('name');
+    f.input('job');
+    f.submit('Wow');
+  })).toBe(result);
 });

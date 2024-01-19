@@ -8,7 +8,7 @@ export default class Tag {
     tagProperties: Record<string, string | number> = {},
     private value?: string,
   ) {
-    this.tagProperties = Object.entries(tagProperties).map(([tagKey, tagValue]) => `${tagKey}="${tagValue}"`).join(' ');
+    this.tagProperties = Object.entries(tagProperties).map(([tagKey, tagValue]) => `${tagKey}='${tagValue}'`).join(' ');
   }
 
   toString(): string {
