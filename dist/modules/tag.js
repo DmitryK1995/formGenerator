@@ -8,7 +8,7 @@ class Tag {
     constructor(tagName, tagProperties = {}, value) {
         this.tagName = tagName;
         this.value = value;
-        this.tagProperties = Object.entries(tagProperties).map(([tagKey, tagValue]) => `${tagKey}='${tagValue}'`).join(' ');
+        this.tagProperties = Object.entries(tagProperties).map(([tagKey, tagValue]) => `${tagKey}="${tagValue}"`).join(' ');
     }
     toString() {
         return `<${this.tagName}${this.tagProperties && ` ${this.tagProperties}`}>${this.value ?? ''}${ordinaryTags.includes(this.tagName) ? '' : `</${this.tagName}>`}`;

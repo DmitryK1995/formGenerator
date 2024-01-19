@@ -8,8 +8,8 @@ export default class HexletCode {
     func: { (f: FormFieldsCreator): void },
   ): string {
     const formProperties = {
-      method: `${formInfo.method ? formInfo.method : 'post'}`,
       action: `${formInfo.url ? formInfo.url : '#'}`,
+      method: `${formInfo.method ? formInfo.method : 'post'}`,
     };
 
     const inputFieldsNew = new FormFieldsCreator(template);
