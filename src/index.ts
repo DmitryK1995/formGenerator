@@ -1,21 +1,36 @@
-type ItagProperties = Record<string, string>;
+import InputCreator from './modules/inputCreator';
+import Tag from './modules/tag';
 
-const ordinaryTags = ['br', 'img', 'input'];
+export default class HexletCode {
+  // private fields = [];
 
-export default class Tag {
-  tagPropertiesToString: string;
+  // static input() {
+  //   console.log('work22!');
+  // }
+  // constructor(
+  //   private template: Record<string, string>,
+  //   private url: { url?: string },
+  //   private func: { (): void },
+  // ) {
+  //   super('form', url);
+  // }
 
-  constructor(
-    private tagName: string,
-    private tagProperties: Partial<ItagProperties> = {},
-    private value?: string,
-  ) {
-    this.tagPropertiesToString = Object.entries(tagProperties).map(([tagKey, tagValue]) => `${tagKey}="${tagValue}"`).join(' ');
-  }
+  static formFor(
+    template: Record<string, string>,
+    formInfo: { url?: string, method?: string },
+    func: { (f: InputCreator): void },
+  ): string {
+    const formProperties = {
+      action: `${formInfo.url ? formInfo.url : '#'}`,
+      method: `${formInfo.method ? formInfo.method : 'post'}`,
+    };
 
-  toString(): string {
-    return `<${this.tagName}${this.tagPropertiesToString && ` ${this.tagPropertiesToString}`}>${this.value ?? ''}${ordinaryTags.includes(this.tagName) ? '' : `</${this.tagName}>`}`;
+    const inputFieldsNew = new InputCreator(template);
+
+    func(inputFieldsNew);
+
+    const inputFields = inputFieldsNew.getInputList;
+
+    return new Tag('form', formProperties, inputFields).toString();
   }
 }
-
-// console.log(new Tag('label', { for: 'email' }, 'Email').toString());
