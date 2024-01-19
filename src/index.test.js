@@ -1,5 +1,4 @@
 /* eslint-disable no-underscore-dangle */
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { expect, test } from 'vitest';
 import { fileURLToPath } from 'url';
 import fs from 'fs';

@@ -10,7 +10,12 @@ module.exports = {
     'airbnb-base',
   ],
   parser: '@typescript-eslint/parser',
-  rules: {},
+  rules: {
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: true },
+    ],
+  },
   overrides: [
     {
       extends: [
