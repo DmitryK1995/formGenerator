@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
-    "target": "ES2022",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
     "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
     "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
-    "module": "commonjs",                                /* Specify what module code is generated. */
+    "module": "ES2022",
+    "target": "ES2022",                             /* Specify what module code is generated. */
     "baseUrl": "./",                                  /* Specify the base directory to resolve non-relative module names. */
     "declaration": true,                              /* Generate .d.ts files from TypeScript and JavaScript files in your project. */
     "sourceMap": true,                                /* Create source map files for emitted JavaScript files. */
