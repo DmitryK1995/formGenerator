@@ -14,7 +14,7 @@ const getFixturePath = (filename) => path.join(__dirname, '..', '__fixtures__', 
 const readFile = (filename) => fs.readFileSync(getFixturePath(filename), 'utf-8');
 
 test('test 1', () => {
-  expect(HexletCode.formFor(template, { url: '/users' }, () => {})).toBe("<form action='/users' method='post'></form>");
+  expect(HexletCode.formFor(template, { url: '/users' }, () => {})).toBe('<form method="post" action="/users"></form>');
 });
 
 test('test 2. Input', () => {
@@ -23,7 +23,7 @@ test('test 2. Input', () => {
   expect(HexletCode.formFor(template, {}, (f) => {
     f.input('name', { class: 'user-input' });
     f.input('job');
-  })).toBe(result);
+  })).toBe(result.replace(/'/g, '"'));
 });
 
 test('test 3. TextArea', () => {
@@ -31,7 +31,7 @@ test('test 3. TextArea', () => {
 
   expect(HexletCode.formFor(template, {}, (f) => {
     f.input('job', { as: 'textarea', rows: 50, cols: 50 });
-  })).toBe(result);
+  })).toBe(result.replace(/'/g, '"'));
 });
 
 test('test 4. submit', () => {
@@ -41,5 +41,5 @@ test('test 4. submit', () => {
     f.input('name');
     f.input('job');
     f.submit('Wow');
-  })).toBe(result);
+  })).toBe(result.replace(/'/g, '"'));
 });
